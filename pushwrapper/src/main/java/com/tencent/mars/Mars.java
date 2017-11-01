@@ -6,9 +6,6 @@ import android.os.Handler;
 import com.tencent.mars.comm.PlatformComm;
 import com.tencent.mars.xlog.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by caoshaokun on 16/2/1.
  */

@@ -3,11 +3,10 @@ package com.tencent.mars.comm;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.net.Proxy;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 /**
  * mars获取

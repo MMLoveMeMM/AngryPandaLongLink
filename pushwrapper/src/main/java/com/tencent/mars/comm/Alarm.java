@@ -12,7 +12,6 @@ import android.os.SystemClock;
 
 import com.tencent.mars.xlog.Log;
 
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeSet;

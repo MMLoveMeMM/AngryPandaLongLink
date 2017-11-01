@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.tencent.mars.comm.PlatformComm;
 
+
 /**
  * Created by rd0348 on 2017/10/30 0030.
  */
