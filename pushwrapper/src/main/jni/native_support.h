@@ -1,11 +1,6 @@
 #ifndef __H_NATIVE_SPPORTS_H__
 #define __H_NATIVE_SPPORTS_H__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>

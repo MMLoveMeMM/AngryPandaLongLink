@@ -26,7 +26,7 @@ LOCAL_LDLIBS += -llog -lz
 #mars
 LOCAL_STATIC_LIBRARIES += stn sdt appcomm baseevent static_xlog comm ssl crypto
 
-LOCAL_MODULE := pushservice
+LOCAL_MODULE := linkcore
 
 			
 LOCAL_C_INCLUDES := $(MAIN_PATH) \

@@ -91,8 +91,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
 
     if (vm->GetEnv((void**)&env, JNI_VERSION_1_6) != JNI_OK)
     {
-    LOGE("ERROR: GetEnv failed\n");
-    goto error;
+		LOGE("ERROR: GetEnv failed\n");
+		return -1;
     }
 
     if (0 != pthread_key_create(&g_env_key, __DetachCurrentThread)) {
@@ -110,7 +110,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
     std::vector<JniOnload_t>& ref = BOOT_REGISTER_CONTAINER<JniOnload_t>() ;
     for (std::vector<JniOnload_t>::const_iterator it= ref.begin(); it!=ref.end(); ++it)
     {
-        it->func(jvm, reserved);
+        it->func(vm, reserved);
     }
 
     if ((clazz = env->FindClass((const char*)JNI_GET_CLASS_NAME(JAVA_CLASS_LINKCORE))) == NULL)
@@ -118,9 +118,9 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
         goto error;
     }
 
-    //if (register_android_jni_mp4toyuv_module(env,clazz) != JNI_OK){
-    //    goto error;
-    //}
+    if (register_android_jni_link_module(env,clazz) != JNI_OK){
+        goto error;
+    }
 
     JNI_DELETE_LOCAL_REF(clazz);
 

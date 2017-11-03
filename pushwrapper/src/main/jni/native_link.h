@@ -11,6 +11,7 @@
 extern "C"
 {
 #endif
+
 int register_android_jni_link_module(JNIEnv* env, jclass clazz);
 /*
  * Class:     com_panda_org_pushwrapper_core
@@ -71,4 +72,5 @@ JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_DestroyLink
 #ifdef __cplusplus
 }
 #endif
+
 #endif //__H_NATIVE_LINK_H__

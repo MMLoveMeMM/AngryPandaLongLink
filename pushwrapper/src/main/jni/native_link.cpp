@@ -46,7 +46,10 @@ JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_IsLongLinkConnect
 * Signature: ()I
 */
 JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_OnForeground
-(JNIEnv *env, jobject thiz);
+(JNIEnv *env, jobject thiz){
+
+	return 0;
+}
 
 /*
 * Class:     com_panda_org_pushwrapper_core
