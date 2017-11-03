@@ -22,7 +22,7 @@
 #include "comm/autobuffer.h"
 #include "comm/xlogger/xlogger.h"
 #include "stn/stn.h"
-#include "NetworkService.h"
+#include "MarsManager.h"
 
 namespace mars {
     namespace stn {
@@ -31,7 +31,7 @@ StnCallBack* StnCallBack::instance_ = NULL;
         
 StnCallBack* StnCallBack::Instance() {
     if(instance_ == NULL) {
-        instance_ = new StnCallBack();
+        instance_ = new mars::stn::StnCallBack();
     }
     
     return instance_;
@@ -58,22 +58,22 @@ std::vector<std::string> StnCallBack::OnNewDns(const std::string& _host) {
 }
 
 void StnCallBack::OnPush(uint64_t _channel_id, uint32_t _cmdid, uint32_t _taskid, const AutoBuffer& _body, const AutoBuffer& _extend) {
-    NetworkService::Instance().OnPush(_channel_id, _cmdid, _taskid, _body, _extend);
+    MarsManager::Instance().OnPush(_channel_id, _cmdid, _taskid, _body, _extend);
     
 }
 
 bool StnCallBack::Req2Buf(uint32_t _taskid, void* const _user_context, AutoBuffer& _outbuffer, AutoBuffer& _extend, int& _error_code, const int _channel_select) {
 	
-	return NetworkService::Instance().Req2Buf(_taskid, _user_context, _outbuffer, _extend, _error_code, _channel_select);
+	return MarsManager::Instance().Req2Buf(_taskid, _user_context, _outbuffer, _extend, _error_code, _channel_select);
 }
 
 int StnCallBack::Buf2Resp(uint32_t _taskid, void* const _user_context, const AutoBuffer& _inbuffer, const AutoBuffer& _extend, int& _error_code, const int _channel_select) {
     
-	return NetworkService::Instance().Buf2Resp(_taskid, _user_context, _inbuffer, _extend, _error_code, _channel_select);
+	return MarsManager::Instance().Buf2Resp(_taskid, _user_context, _inbuffer, _extend, _error_code, _channel_select);
 }
 
 int StnCallBack::OnTaskEnd(uint32_t _taskid, void* const _user_context, int _error_type, int _error_code) {
-	NetworkService::Instance().OnTaskEnd(_taskid, _user_context, _error_type, _error_code);
+	MarsManager::Instance().OnTaskEnd(_taskid, _user_context, _error_type, _error_code);
 	return 0;
 }
 

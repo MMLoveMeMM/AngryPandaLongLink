@@ -28,7 +28,9 @@ JavaVM *g_JavaVM = NULL;
 const char* g_java_class_name[] = {
         "java/lang/String",
         "java/lang/Integer",
-        "com/panda/org/pushwrapper/core/LinkCore"
+        "com/panda/org/pushwrapper/core/LinkCore",
+        "com/panda/org/pushwrapper/aidl/LongLinkConfItem",
+        "com/panda/org/pushwrapper/aidl/MsgItem"
 };
 
 jobject g_java_class_obj[JAVA_CLASS_MAX] = { NULL };

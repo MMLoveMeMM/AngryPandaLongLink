@@ -20,6 +20,7 @@
 #include "app_callback.h"
 
 #include "comm/autobuffer.h"
+#include "MarsManager.h"
 
 namespace mars {
     namespace app {
@@ -40,8 +41,11 @@ void AppCallBack::Release() {
 }
 
 // return your app path
+/*
+* 这个地方一定要配置,不能够采用默认的空值
+*/
 std::string AppCallBack::GetAppFilePath(){
-    return "";
+    return MarsManager::Instance().mLongLinkConfItem.work_dir;
 }
         
 AccountInfo AppCallBack::GetAccountInfo() {
@@ -49,12 +53,17 @@ AccountInfo AppCallBack::GetAccountInfo() {
     
     return info;
 }
-
+/*
+* 这个是长连接,整体说来还是整个mars对服务器的版本
+*/
 unsigned int AppCallBack::GetClientVersion() {
     
     return 200;
 }
 
+/*
+* 这个设备可以配置
+*/
 DeviceInfo AppCallBack::GetDeviceInfo() {
     DeviceInfo info;
 

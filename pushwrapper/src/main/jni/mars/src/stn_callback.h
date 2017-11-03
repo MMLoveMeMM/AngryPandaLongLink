@@ -19,7 +19,7 @@
 
 #ifndef STNCALLBACK_h
 #define STNCALLBACK_h
-#include "comm/windows/projdef.h"
+#include "comm/projdef.h"
 #include "stn/stn_logic.h"
 
 namespace mars {

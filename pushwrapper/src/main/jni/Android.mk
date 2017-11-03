@@ -30,18 +30,31 @@ LOCAL_MODULE := linkcore
 
 			
 LOCAL_C_INCLUDES := $(MAIN_PATH) \
-                    $(MAIN_PATH)\$(PROJECT_PATH)\mars
+                    $(MAIN_PATH)/$(PROJECT_PATH)/mars \
+                    $(MAIN_PATH)/../../../mars \
+                    $(MAIN_PATH)/../../.. \
+                    $(MAIN_PATH)/mars \
+                    $(MAIN_PATH)/mars/include \
+                    $(MAIN_PATH)/mars/src
+
 #$(warning $(LOCAL_C_INCLUDES))
 
 # mars
+# mars
+LOCAL_MARS_SRC_DIR_LIST := $(wildcard $(MAIN_PATH)/mars/src/*.cpp)
+LOCAL_MARS_SRC_DIR := $(LOCAL_MARS_SRC_DIR_LIST:$(MAIN_PATH)/%=%)
 
+LOCAL_MARS_DIR_LIST := $(wildcard $(MAIN_PATH)/mars/*.cpp)
+LOCAL_MARS_DIR := $(LOCAL_MARS_DIR_LIST:$(MAIN_PATH)/%=%)
 					
 $(warning $(LOCAL_JNI_DIR_IM))
 LOCAL_SRC_FILES := native_core.cpp \
                     native_support.cpp \
                     native_link.cpp
-					
-#include $(MAIN_PATH)/libmars/mars_jni.mk
+
+LOCAL_SRC_FILES += $(LOCAL_MARS_SRC_DIR) \
+					$(LOCAL_MARS_DIR)
+
 include $(MAIN_PATH)/mars/include/JNI.mk
 LOCAL_LDLIBS += -latomic
 LOCAL_SRC_FILES += import.cc

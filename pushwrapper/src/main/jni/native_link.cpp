@@ -1,11 +1,36 @@
 #include "native_link.h"
+#include "MarsManager.h"
 /*
  * Class:     com_panda_org_pushwrapper_core
  * Method:    LinkCoreInit
  * Signature: ((Lcom/panda/org/pushwrapper/aidl/LongLinkConfItem;))I
  */
 JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_LinkCoreInit
-  (JNIEnv *env, jobject thiz, jobject confitem){
+  (JNIEnv *env, jobject thiz, jobject obj){
+
+    jclass jclazz = env->GetObjectClass(JNI_GET_CLASS_OBJ(JAVA_CLASS_LongLinkConfItem));
+
+	jfieldID jauthInfo = JNI_GET_FIELD_STR_ID_NAME("authInfo");
+	jfieldID jwork_dir = JNI_GET_FIELD_STR_ID_NAME("work_dir");
+	jfieldID jlonglinkhost = JNI_GET_FIELD_STR_ID_NAME("longlinkhost");
+	jfieldID jshortlinkhost = JNI_GET_FIELD_STR_ID_NAME("shortlinkhost");
+
+	jfieldID jenablexlog = JNI_GET_FIELD_INT_ID_NAME("enablexlog");
+	jfieldID jisAuth = JNI_GET_FIELD_INT_ID_NAME("isAuth");
+	jfieldID jinterval = JNI_GET_FIELD_INT_ID_NAME("interval");
+	jfieldID jenableKeepalive = JNI_GET_FIELD_INT_ID_NAME("enableKeepalive");
+
+	jstring authInfo = (jstring)JNI_GET_OBJ_FIELD_ID(jauthInfo);
+	jstring work_dir = (jstring)JNI_GET_OBJ_FIELD_ID(jwork_dir);
+	jstring longlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jlonglinkhost);
+	jstring shortlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jshortlinkhost);
+
+
+	JNI_GET_INT_FIELD_ID(jisAuth);
+	JNI_GET_INT_FIELD_ID(jinterval);
+	JNI_GET_INT_FIELD_ID(jenableKeepalive);
+
+    MarsManager::Instance().mLongLinkConfItem.enablexlog = JNI_GET_INT_FIELD_ID(jenablexlog);
 
     return 0;
 }
