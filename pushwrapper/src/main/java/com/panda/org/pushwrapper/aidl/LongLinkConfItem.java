@@ -19,6 +19,9 @@ public class LongLinkConfItem implements Parcelable {
     private String authInfo;// json格式字符窜或者protobuf 序列化后的字符串
     private String work_dir;
     private int interval;
+    private int enableKeepalive; // 使能一个udp链接,辅助支持链接状态
+    private String longlinkhost; // eg : 192.168.11.19:6000
+    private String shortlinkhost;
 
     protected LongLinkConfItem(Parcel in) {
         enablexlog = in.readInt();
@@ -26,6 +29,7 @@ public class LongLinkConfItem implements Parcelable {
         authInfo = in.readString();
         work_dir = in.readString();
         interval = in.readInt();
+        enableKeepalive = in.readInt();
     }
 
     public static final Creator<LongLinkConfItem> CREATOR = new Creator<LongLinkConfItem>() {
@@ -51,6 +55,7 @@ public class LongLinkConfItem implements Parcelable {
         authInfo = source.readString();
         work_dir = source.readString();
         interval = source.readInt();
+        enableKeepalive = source.readInt();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -59,5 +64,6 @@ public class LongLinkConfItem implements Parcelable {
         dest.writeString(authInfo);
         dest.writeString(work_dir);
         dest.writeInt(interval);
+        dest.writeInt(enableKeepalive);
     }
 }
