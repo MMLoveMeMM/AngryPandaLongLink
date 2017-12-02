@@ -25,7 +25,6 @@ JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_LinkCoreInit
 	jstring longlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jlonglinkhost);
 	jstring shortlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jshortlinkhost);
 
-
 	JNI_GET_INT_FIELD_ID(jisAuth);
 	JNI_GET_INT_FIELD_ID(jinterval);
 	JNI_GET_INT_FIELD_ID(jenableKeepalive);
