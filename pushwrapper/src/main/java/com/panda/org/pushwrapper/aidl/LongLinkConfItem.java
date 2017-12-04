@@ -66,4 +66,72 @@ public class LongLinkConfItem implements Parcelable {
         dest.writeInt(interval);
         dest.writeInt(enableKeepalive);
     }
+
+    public int getEnablexlog() {
+        return enablexlog;
+    }
+
+    public void setEnablexlog(int enablexlog) {
+        this.enablexlog = enablexlog;
+    }
+
+    public int getIsAuth() {
+        return isAuth;
+    }
+
+    public void setIsAuth(int isAuth) {
+        this.isAuth = isAuth;
+    }
+
+    public String getAuthInfo() {
+        return authInfo;
+    }
+
+    public void setAuthInfo(String authInfo) {
+        this.authInfo = authInfo;
+    }
+
+    public String getWork_dir() {
+        return work_dir;
+    }
+
+    public void setWork_dir(String work_dir) {
+        this.work_dir = work_dir;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public int getEnableKeepalive() {
+        return enableKeepalive;
+    }
+
+    public void setEnableKeepalive(int enableKeepalive) {
+        this.enableKeepalive = enableKeepalive;
+    }
+
+    public String getLonglinkhost() {
+        return longlinkhost;
+    }
+
+    public void setLonglinkhost(String longlinkhost) {
+        this.longlinkhost = longlinkhost;
+    }
+
+    public String getShortlinkhost() {
+        return shortlinkhost;
+    }
+
+    public void setShortlinkhost(String shortlinkhost) {
+        this.shortlinkhost = shortlinkhost;
+    }
+
+    public static Creator<LongLinkConfItem> getCREATOR() {
+        return CREATOR;
+    }
 }

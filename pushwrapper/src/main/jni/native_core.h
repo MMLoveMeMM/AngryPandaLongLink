@@ -194,5 +194,6 @@ int jniRegisterNativeMethods(JNIEnv *env, jclass clazz, const JNINativeMethod *g
 
 std::string GetString(char *c_char);
 
-
+int OnPushMsgProc(int msg, char* wparam, unsigned long lParam);
+//int OnSystemMsgProc(int msg, unsigned long long wparam, unsigned long long lParam);
 #endif

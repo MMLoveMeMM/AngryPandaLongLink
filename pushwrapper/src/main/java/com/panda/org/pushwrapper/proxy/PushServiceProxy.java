@@ -1,7 +1,9 @@
 package com.panda.org.pushwrapper.proxy;
 
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Looper;
@@ -23,7 +25,7 @@ public class PushServiceProxy implements ServiceConnection {
 
     private final static String TAG = "PushServiceProxy";
 
-    private final static String SERVICE_DEFUALT_CLASSNAME = "com.push.service.PushService";
+    private final static String SERVICE_DEFUALT_CLASSNAME = "com.panda.org.pushwrapper.service.PushService";
 
     private ISerivceInterface service;
     private boolean mBindStatus = false;
@@ -51,6 +53,10 @@ public class PushServiceProxy implements ServiceConnection {
 
     }
 
+    public void RegisterViewMsgProc(ILongLinkSysListener<String> lis)
+    {
+        mIViewProxyListeners.add(lis);
+    }
     /*
 	 * 消息回调 :
 	 * 提供了两种回调方式
@@ -109,6 +115,21 @@ public class PushServiceProxy implements ServiceConnection {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void startBindService() {
+
+        if (service == null) {
+            Log.i(TAG, "try to bind remote mars service, packageName:"+ gPackageName +" , className: "+gClassName);
+            Intent i = new Intent().setClassName(gPackageName, gClassName);
+            gContext.startService(i);
+            if (!gContext.bindService(i, instance, Service.BIND_AUTO_CREATE)) {
+                Log.e(TAG, "remote mars service bind failed");
+            }
+
+            return;
+        }
+
     }
 
     @Override

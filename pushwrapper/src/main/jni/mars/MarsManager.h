@@ -10,6 +10,8 @@
 #include "comm/thread/thread.h"
 #include "comm/autobuffer.h"
 
+typedef int (*CN_PUSH_MSG_PROC_FUN)(int msg, char* wparam, unsigned long lParam);
+
 struct LongLinkConfItem{
 	int enablexlog;
 	int isAuth;
@@ -51,6 +53,8 @@ public:
 public:
 	LongLinkConfItem mLongLinkConfItem;
 	MsgItem mMsgItem;
+
+	CN_PUSH_MSG_PROC_FUN m_pPushMsgProc;
 protected:
 	MarsManager();
 	~MarsManager();

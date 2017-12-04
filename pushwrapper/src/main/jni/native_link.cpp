@@ -25,12 +25,24 @@ JNIEXPORT jint JNICALL Java_com_panda_org_pushwrapper_core_LinkCoreInit
 	jstring longlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jlonglinkhost);
 	jstring shortlinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jshortlinkhost);
 
-	JNI_GET_INT_FIELD_ID(jisAuth);
-	JNI_GET_INT_FIELD_ID(jinterval);
-	JNI_GET_INT_FIELD_ID(jenableKeepalive);
-
     MarsManager::Instance().mLongLinkConfItem.enablexlog = JNI_GET_INT_FIELD_ID(jenablexlog);
+    MarsManager::Instance().mLongLinkConfItem.isAuth=JNI_GET_INT_FIELD_ID(jisAuth);
+    MarsManager::Instance().mLongLinkConfItem.interval=JNI_GET_INT_FIELD_ID(jinterval);
+    MarsManager::Instance().mLongLinkConfItem.enableKeepalive=JNI_GET_INT_FIELD_ID(jenableKeepalive);
 
+    jstring jsauthinfo = (jstring)JNI_GET_OBJ_FIELD_ID(jauthInfo);
+    MarsManager::Instance().mLongLinkConfItem.authInfo =jstringToStdstring(env, jsauthinfo);
+
+    jstring jsworkdir = (jstring)JNI_GET_OBJ_FIELD_ID(jwork_dir);
+    MarsManager::Instance().mLongLinkConfItem.work_dir =jstringToStdstring(env, jsworkdir);
+
+    jstring jslonglinkhost = (jstring)JNI_GET_OBJ_FIELD_ID(jlonglinkhost);
+    MarsManager::Instance().mLongLinkConfItem.longlinkhost =jstringToStdstring(env, jslonglinkhost);
+
+    jstring jsshorthost = (jstring)JNI_GET_OBJ_FIELD_ID(jshortlinkhost);
+    MarsManager::Instance().mLongLinkConfItem.shortlinkhost =jstringToStdstring(env, jsshorthost);
+
+    MarsManager::Instance().m_pPushMsgProc=OnPushMsgProc;
     return 0;
 }
 

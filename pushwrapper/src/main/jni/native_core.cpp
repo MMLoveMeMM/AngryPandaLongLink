@@ -56,6 +56,23 @@ int jniRegisterNativeMethods(JNIEnv* env, jclass clazz/*const char* className*/,
 
 }
 
+int OnPushMsgProc(int msg, char* wparam, unsigned long lParam)
+{
+    LOGI("CallbackBuffer OnPushMsgProc: sytem msg proc entry : %d\n",msg);
+	JNIEnv *env = CN_NULL;
+	CN_ATTACH_JVM(env);
+
+	jobject result = CN_NULL;
+	jclass jclazz = env->GetObjectClass(JNI_GET_CLASS_OBJ(JAVA_CLASS_LINKCORE));
+	env->CallStaticVoidMethod(jclazz, JNI_GET_STATIC_METHOD(JAVA_STATIC_METHOD_SYS), msg, result, (int)lParam);
+
+	JNI_DELETE_LOCAL_REF(result);
+	JNI_DELETE_LOCAL_REF(jclazz);
+	CN_DETACH_JVM(env);
+	LOGI("CallbackBuffer OnPushMsgProc: sytem msg proc exit\n");
+	return 0;
+}
+
 static void JNI_initClassHelper(JNIEnv *env, const char *path, jobject *objptr, jmethodID *construct, JAVA_CLASS_TYPE i) {
     jclass cls = env->FindClass(path);
     if (!cls) {
@@ -123,6 +140,8 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
     if (register_android_jni_link_module(env,clazz) != JNI_OK){
         goto error;
     }
+
+    JNI_SET_STATIC_METHOD(JAVA_STATIC_METHOD_SYS, env->GetStaticMethodID(clazz, "cnSysMsgProcInner", "(ILjava/lang/Object;I)V"));
 
     JNI_DELETE_LOCAL_REF(clazz);
 

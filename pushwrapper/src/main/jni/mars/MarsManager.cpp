@@ -6,8 +6,9 @@
 #include "stn/proto/stnproto_logic.h"
 #include "stn_callback.h"
 #include "app_callback.h"
-
-
+#include "comm/xlogger/xlogger.h"
+#include "comm/xlogger/xloggerbase.h"
+#include "Packet.h"
 MarsManager::MarsManager(){
 
 }
@@ -30,10 +31,18 @@ void MarsManager::__Init(){
 
 bool MarsManager::Req2Buf(uint32_t _taskid, void* const _user_context, AutoBuffer& _outbuffer, AutoBuffer& _extend, int& _error_code, const int _channel_select){
 
+    Packet* pt = (Packet *)_user_context;
+    unsigned int nBodyLength = (unsigned int)pt->getbody().length();
+    _outbuffer.AllocWrite(nBodyLength);
+    _outbuffer.Write(pt->getbody().c_str(), nBodyLength);
+    return nBodyLength > 0;
+
 }
 
 int MarsManager::Buf2Resp(uint32_t _taskid, void* const _user_context, const AutoBuffer& _inbuffer, const AutoBuffer& _extend, int& _error_code, const int _channel_select){
-
+    xinfo2(TSF"mars _taskid:%_", _taskid);
+    int handle_type = mars::stn::kTaskFailHandleNormal;
+    return handle_type;
 }
 
 int MarsManager::OnTaskEnd(uint32_t _taskid, void* const _user_context, int _error_type, int _error_code){
@@ -41,7 +50,14 @@ int MarsManager::OnTaskEnd(uint32_t _taskid, void* const _user_context, int _err
 }
 
 void MarsManager::OnPush(uint64_t _channel_id, uint32_t _cmdid, uint32_t _taskid, const AutoBuffer& _body, const AutoBuffer& _extend){
-
+    if (_body.Length() > 0) {
+        //xinfo2(TSF"mars push msg:%_", (const char*)_msgpayload.Ptr());
+        //gCommandManager->ProcessBody(_cmdid, (const CHAR*)_msgpayload.Ptr());
+        if (NULL != m_pPushMsgProc)
+        {
+            m_pPushMsgProc(_cmdid, (char*)_body.Ptr(), /*lParam*/0);
+        }
+    }
 }
 
 void MarsManager::setClientVersion(uint32_t _client_version){
